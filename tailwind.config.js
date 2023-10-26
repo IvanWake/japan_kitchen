@@ -20,6 +20,16 @@ module.exports = {
       },
       colors: {
         'promo-color': '#6b068ae8'
+      },
+      borderRadius: {
+        'none': '0',
+        'sm': '0.125rem',
+        'md': '0.3125rem',
+        'lg': '0.5rem',
+        'full': '9999px',
+        'large': '12px',
+        'button-submit': '20px',
+        'input-number': '5px',
       }
     },
   },

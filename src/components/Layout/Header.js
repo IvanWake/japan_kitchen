@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import headerImg from '../../assets/img/sushi.jpg';
-import HeaderCartButton from "./HeaderCatdButton";
+import HeaderCartButton from "./HeaderCartButton";
 
 const Header = (props) => {
     return (
@@ -9,7 +9,7 @@ const Header = (props) => {
                 <div className="container mx-auto">
                     <div className="flex justify-between">
                         <h1 className="text-center text-white text-3xl font-extrabold">Japan Kitchen</h1>
-                        <HeaderCartButton />
+                        <HeaderCartButton onSetVisibilityCart={props.onSetVisibilityCart} />
                     </div>
                 </div>
             </header>

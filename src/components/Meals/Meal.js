@@ -1,3 +1,4 @@
+import MealForm from "./MealForm";
 
 const Meal = (props) => {
 
@@ -19,7 +20,8 @@ const Meal = (props) => {
             dark:text-neutral-200">
                 {props.desc}
             </p>
-            <span className="text-purple-700 font-boldgt text-xl">{formattedPrice}</span>
+            <span className="text-purple-700 font-bold text-xl">{formattedPrice}</span>
+            <MealForm />
         </div>
     );
 }
