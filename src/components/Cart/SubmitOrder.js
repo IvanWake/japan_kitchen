@@ -6,7 +6,7 @@ const SubmitOrder = (props) => {
         register,
         handleSubmit,
         reset,
-        formState: { errors, isValid, isSubmitSuccessful}
+        formState: { errors, isValid}
     } = useForm({
         mode: 'onBlur',
     })
@@ -31,6 +31,7 @@ const SubmitOrder = (props) => {
             fetchOrder(data);
             reset();
             props.onCleanCart();
+            props.onHideForm(false)
         }
     }
 

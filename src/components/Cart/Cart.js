@@ -10,7 +10,7 @@ const Cart = (props) => {
     const cartContext = useContext(CartContext);
 
     const totalAmount = `$${cartContext.totalAmount.toFixed(2)}`;
-
+    const hasItems = cartContext?.items.length > 0;
 
     const addCartItemHandler = (item) => {
         cartContext.addItem({...item, amount: 1})
@@ -48,14 +48,14 @@ const Cart = (props) => {
                 <span>Итого</span>
                 <span>{totalAmount}</span>
             </div>
-            { isFormVisible && <SubmitOrder items={cartContext.items}  onCleanCart={cleanCartHandler}/>}
+            { isFormVisible && <SubmitOrder items={cartContext.items}  onCleanCart={cleanCartHandler} onHideForm={setIsFormVisible}/>}
             <div className="text-right">
                 <button className="bg-transparent border-promo-color border rounded-3xl px-8 py-2 hover:bg-purple-950 hover:text-white"
                         type="button" onClick={props.onSetVisibilityCart}>Закрыть</button>
-                { !isFormVisible && <button className="bg-transparent border-promo-color border rounded-3xl px-8 py-2 hover:bg-purple-950 hover:text-white"
+                { !isFormVisible && hasItems &&  <button className="bg-transparent border-promo-color border rounded-3xl px-8 py-2 hover:bg-purple-950 hover:text-white"
                         type="button" onClick={setIsFormVisibleHandler}>Заказать</button> }
-                <button className="bg-transparent border-promo-color border rounded-3xl px-8 py-2 hover:bg-purple-950 hover:text-white"
-                        type="button" onClick={cleanCartHandler}>Очистить корзину</button>
+                {hasItems && <button className="bg-transparent border-promo-color border rounded-3xl px-8 py-2 hover:bg-purple-950 hover:text-white"
+                        type="button" onClick={cleanCartHandler}>Очистить корзину</button> }
             </div>
         </Modal>
     );
