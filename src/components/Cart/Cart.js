@@ -16,8 +16,13 @@ const Cart = (props) => {
     const removeCartItemHandler = (id) => {
         cartContext.removeItem(id);
     };
+    
+    const cleanCartHandler = () => {
+        cartContext.removeItems();
+    }
 
-    const cartItems = cartContext.items.map((item) => (
+
+    const cartItems = cartContext?.items.map((item) => (
             <CartItem
                 key={item.id}
                 id={item.id}
@@ -44,6 +49,8 @@ const Cart = (props) => {
                         type="button" onClick={props.onSetVisibilityCart}>Закрыть</button>
                 <button className="bg-transparent border-promo-color border rounded-3xl px-8 py-2 hover:bg-purple-950 hover:text-white"
                         type="button" onClick={props.onSetVisibilityCart}>Заказать</button>
+                <button className="bg-transparent border-promo-color border rounded-3xl px-8 py-2 hover:bg-purple-950 hover:text-white"
+                        type="button" onClick={cleanCartHandler}>Очистить корзину</button>
             </div>
         </Modal>
     );

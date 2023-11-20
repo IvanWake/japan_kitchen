@@ -61,6 +61,10 @@ import CartContext from "./cart-context";
             totalAmount: updatedTotalAmount,
         };
     }
+
+    if (action.type === 'removeItems') {
+        return defaultCartState;
+    }
         return defaultCartState;
     };
 
@@ -81,12 +85,18 @@ const CartContextProvider = (props) => {
             id: id,
         });
     };
+    const removeItemsHandler = () => {
+        dispatchCartState({
+            type: 'removeItems',
+        });
+    }
 
     const cartContext = {
         items: cartState.items,
         totalAmount: cartState.totalAmount,
         addItem: addItemHandler,
         removeItem: removeItemHandler,
+        removeItems: removeItemsHandler,
     }
 
     return (

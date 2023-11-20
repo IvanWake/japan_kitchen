@@ -1,37 +1,51 @@
-import Meal from "./Meal";
+import { useEffect, useState } from "react";
 
-const dummy_meals = [
-    {
-        id: "m1",
-        name: 'Ролл "Наоми"',
-        description:
-            "Сыр Филадельфия, куриное филе, масаго, помидор, огурец, кунжут",
-        price: 11.99,
-    },
-    {
-        id: "m2",
-        name: "Спайси в лососе",
-        description: "Рис, лосось, соус спайси",
-        price: 3.99,
-    },
-    {
-        id: "m3",
-        name: "Суши с угрем",
-        description: "Угорь копченый, соус унаги, кунжут",
-        price: 4.99,
-    },
-    {
-        id: "m4",
-        name: 'Салат "Поке с лососем"',
-        description:
-            "Рис, лосось, огурец, чука, нори, стружка тунца, соус ореховый",
-        price: 7.99,
-    },
-];
+import Meal from "./Meal";
 
 const MealList = () => {
 
-    let meals = dummy_meals.map((meal) => (
+    const [meals, setMeals] = useState();
+    const [isLoading, setIsLoading] = useState(false);
+    const [httpErrorMessage, setHttpErrorMessage] = useState();
+
+    useEffect(() => {
+        const fetchMeals = async () => {
+            setIsLoading(true);
+                const response = await fetch("https://react-http-test-c60e0-default-rtdb.firebaseio.com/meals.json");
+
+                if (!response.ok) {
+                    throw new Error("Что-то пошло не так");
+                }
+                const responseData = await response.json();
+
+                let data  = [];
+                for (const key in responseData) {
+                    data.push({
+                        id: key,
+                        name: responseData[key].name,
+                        description: responseData[key].desc,
+                        price: responseData[key].price,
+                    })
+                }
+                setMeals(data);
+                setIsLoading(false);
+        }
+            fetchMeals().catch(err => {
+                setIsLoading(false);
+                setHttpErrorMessage(err.message);
+            });
+    }, []);
+
+    let content;
+    if (isLoading) {
+        content = <p style={{ textAlign: "center" }}>Данные загружаются ...</p>;
+    }
+
+    if (httpErrorMessage) {
+        content = <p style={{ textAlign: "center" }}>{httpErrorMessage}</p>
+    }
+
+    let mealList = meals?.map((meal) => (
         <Meal
             key={meal.id}
             id={meal.id}
@@ -44,7 +58,8 @@ const MealList = () => {
     return (
         <section className="max-w-3xl w-9/10 my-4 mx-auto">
             <div className="space-y-5">
-                {meals}
+                {content}
+                {mealList}
             </div>
         </section>
     );
