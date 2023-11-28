@@ -45,13 +45,14 @@ const MealList = () => {
         content = <p style={{ textAlign: "center" }}>{httpErrorMessage}</p>
     }
 
-    let mealList = meals?.map((meal) => (
+    let mealList = meals?.map((meal, i) => (
         <Meal
             key={meal.id}
             id={meal.id}
             name={meal.name}
             desc={meal.description}
             price={meal.price}
+            i={i}
         />
     ));
 

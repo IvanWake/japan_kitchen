@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import { motion } from "framer-motion";
+
 import MealForm from "./MealForm";
 import CartContext from "../../store/cart-context";
 
@@ -15,12 +17,30 @@ const Meal = (props) => {
         });
     }
 
+    const listMealsVariants = {
+        visible: i => ({
+            delay: 1,
+            y: 0,
+            opacity: 1,
+            transition: {
+                delay: i * 0.7,
+                duration: 0.7,
+            }
+        }),
+        hidden: { opacity: 0, }
+    };
+
     return (
-        <div
+        <motion.div
             className="block rounded-lg bg-white p-6
             shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]
             dark:bg-neutral-700"
-            key={props.key}>
+            key={props.key}
+            initial={'hidden'}
+            animate={'visible'}
+            variants={listMealsVariants}
+            custom={props.i}
+            >
             <h5 className="mb-2 text-xl font-medium
             leading-tight text-neutral-800
             dark:text-neutral-50">
@@ -33,7 +53,7 @@ const Meal = (props) => {
             </p>
             <span className="text-purple-700 font-bold text-xl">{formattedPrice}</span>
             <MealForm onAddToCart={addToCartHandler} id={props.id} />
-        </div>
+        </motion.div>
     );
 }
 export default Meal;
