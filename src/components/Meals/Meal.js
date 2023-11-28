@@ -21,7 +21,6 @@ const Meal = (props) => {
         visible: i => ({
             delay: 1,
             y: 0,
-            opacity: 1,
             transition: {
                 delay: i * 0.7,
                 duration: 0.7,
@@ -38,6 +37,7 @@ const Meal = (props) => {
             key={props.key}
             initial={'hidden'}
             animate={'visible'}
+            whileInView={{ opacity: 1 }}
             variants={listMealsVariants}
             custom={props.i}
             >
